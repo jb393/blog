@@ -13,3 +13,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 5
