@@ -3,6 +3,7 @@ package com.blog.api.service;
 import com.blog.api.domain.Post;
 import com.blog.api.repository.PostRepository;
 import com.blog.api.request.PostCreate;
+import com.blog.api.request.PostEdit;
 import com.blog.api.request.PostSearch;
 import com.blog.api.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,7 +90,51 @@ class PostServiceTest {
         assertEquals("blog 제목 26", posts.get(4).getTitle());
     }
 
+    @Test
+    @DisplayName("글 제목 수정")
+    void test4() {
+        //given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postRepository.save(post);
 
+        PostEdit postEdit = PostEdit.builder()
+                .title("foo change")
+                .content("bar")
+                .build();
+
+        //when
+        postService.edit(post.getId(), postEdit);
+        //then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id = " + post.getId()));
+        assertEquals("foo change", changedPost.getTitle());
+    }
+
+    @Test
+    @DisplayName("글 내용 수정")
+    void test5() {
+        //given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("foo")
+                .content("bar change")
+                .build();
+
+        //when
+        postService.edit(post.getId(), postEdit);
+        //then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id = " + post.getId()));
+        assertEquals("bar change", changedPost.getContent());
+    }
 
 
 
