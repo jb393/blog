@@ -1,12 +1,12 @@
 package com.blog.api.service;
 
 import com.blog.api.domain.Post;
+import com.blog.api.exception.PostNotFound;
 import com.blog.api.repository.PostRepository;
 import com.blog.api.request.PostCreate;
 import com.blog.api.request.PostEdit;
 import com.blog.api.request.PostSearch;
 import com.blog.api.response.PostResponse;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PostServiceTest {
@@ -149,10 +148,36 @@ class PostServiceTest {
         //when
         postService.delete(post.getId());
         //then
-        Assertions.assertEquals(0, postRepository.count());
-
+        assertEquals(0, postRepository.count());
     }
 
+    @Test
+    @DisplayName("글 1개 조회 exceptioon 발생")
+    void test7() {
+        //given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postRepository.save(post);
+        //expected
+        assertThrows(PostNotFound.class, () -> {
+            postService.get(post.getId() + 1L);
+        });
+    }
 
-
+    @Test
+    @DisplayName("글 1개 삭제 exceptioon 발생")
+    void test8() {
+        //given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postRepository.save(post);
+        //expected
+        assertThrows(PostNotFound.class, () -> {
+            postService.delete(post.getId() + 1L);
+        });
+    }
 }

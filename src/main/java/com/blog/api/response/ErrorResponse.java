@@ -16,11 +16,11 @@ import java.util.Map;
  *  }
  */
 @Getter
+//@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ErrorResponse {
 
     private final String code;
     private final String message;
-
     private final Map<String, String> validation = new HashMap<>();
 
     @Builder
