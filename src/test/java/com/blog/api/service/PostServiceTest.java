@@ -6,6 +6,7 @@ import com.blog.api.request.PostCreate;
 import com.blog.api.request.PostEdit;
 import com.blog.api.request.PostSearch;
 import com.blog.api.response.PostResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -136,6 +137,21 @@ class PostServiceTest {
         assertEquals("bar change", changedPost.getContent());
     }
 
+    @Test
+    @DisplayName("게시글 삭제")
+    void test6() {
+        //given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+        postRepository.save(post);
+        //when
+        postService.delete(post.getId());
+        //then
+        Assertions.assertEquals(0, postRepository.count());
+
+    }
 
 
 

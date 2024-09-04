@@ -1,7 +1,6 @@
 package com.blog.api.domain;
 
 import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 
 @Getter
@@ -49,4 +48,5 @@ public class PostEditor {
         public String toString() {
             return "PostEditor.PostEditorBuilder(title=" + this.title + ", content=" + this.content + ")";
         }
+    }
 }
