@@ -1,7 +1,6 @@
 package com.blog.api.service;
 
 import com.blog.api.domain.Post;
-import com.blog.api.domain.PostEditor;
 import com.blog.api.repository.PostRepository;
 import com.blog.api.request.PostCreate;
 import com.blog.api.request.PostEdit;
@@ -57,12 +56,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
 
-        PostEditor.PostEditorBuilder editorBuilder = post.toEditor();
-        //클라이언트에서 수정할 데이터 + 수정안할 데이터도 넘길 때
-        PostEditor postEditor = editorBuilder.title(postEdit.getTitle())
-                .content(postEdit.getContent())
-                .build();
-        post.edit(postEditor);
+        //PostEditor.PostEditorBuilder editorBuilder = post.toEditor();
         //클라이언트에서 수정안할 데이터는 넘기지 않을 때
 //        if (postEdit.getTitle() != null) {
 //            editorBuilder.title(postEdit.getTitle());
@@ -71,6 +65,15 @@ public class PostService {
 //            editorBuilder.content(postEdit.getContent());
 //        }
 //        post.edit(editorBuilder.build());
+        //클라이언트에서 수정할 데이터 + 수정안할 데이터도 넘길 때
+//        PostEditor postEditor = editorBuilder.title(postEdit.getTitle())
+//                .content(postEdit.getContent())
+//                .build();
+//        post.edit(postEditor);
+        //PostEditor 미사용 코드
+        post.edit(postEdit.getTitle() != null ? postEdit.getTitle() : post.getTitle(),
+                postEdit.getContent() != null ? postEdit.getContent() : post.getContent());
+
     }
 
 
