@@ -1,8 +1,11 @@
 package com.blog.api.exception;
 
+import lombok.Getter;
+
 /**
  * status -> 400
  */
+@Getter
 public class InvalidRequest extends BlogException {
     //ex) postCreate에서 어노테이션으로만 검증할 수 잆는 추가적인 검증이 필요한 경우
 
@@ -10,6 +13,11 @@ public class InvalidRequest extends BlogException {
 
     public InvalidRequest() {
         super(MESSAGE);
+    }
+
+    public InvalidRequest(String fieldName, String message) {
+        super(MESSAGE);
+        addValidation(fieldName, message);
     }
 
     @Override
