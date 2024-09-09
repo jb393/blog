@@ -1,0 +1,29 @@
+= Blog API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+== 글 단 건 조회
+
+=== 요청
+include::{snippets}/post-inqury/http-request.adoc[]
+
+include::{snippets}/post-inqury/path-parameters.adoc[]
+
+=== 응답
+include::{snippets}/post-inqury/http-response.adoc[]
+
+include::{snippets}/post-inqury/response-fields.adoc[]
+
+== 글 작성
+
+=== 요청
+include::{snippets}/post-create/http-request.adoc[]
+
+include::{snippets}/post-create/request-fields.adoc[]
+
+=== 응답
+include::{snippets}/post-create/http-response.adoc[]
