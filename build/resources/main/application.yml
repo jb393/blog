@@ -13,9 +13,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+    defer-datasource-initialization: true
 
   data:
     web:
       pageable:
         one-indexed-parameters: true
         default-page-size: 5
+
+  sql:
+    init:
+      mode: always

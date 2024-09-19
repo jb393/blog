@@ -1,5 +1,6 @@
 package com.blog.api.controller;
 
+import com.blog.api.config.data.UserSession;
 import com.blog.api.request.PostCreate;
 import com.blog.api.request.PostEdit;
 import com.blog.api.request.PostSearch;
@@ -18,6 +19,13 @@ import java.util.List;
 public class PostController {
 
     public final PostService postService;
+
+    @GetMapping("/foo")
+    //public String foo(@RequestAttribute("userName") String userName) {
+    public Long foo(UserSession userSession) {
+        log.info(">>{}", userSession.id);
+        return userSession.id;
+    }
 
     @PostMapping("/posts")
     public void post(@RequestBody @Valid PostCreate request) {
